@@ -205,6 +205,16 @@ describe('Serenity/JS project generation', () => {
         isUsingTypeScript: false,
     }
 
+    it('doesnt fail on missing package.json', async () => {
+        vi.mocked(getAnswers).mockResolvedValue({
+            ...defaultAnswers,
+            framework: '@wdio/mocha-framework$--$mocha',
+            createPackageJSON: true,
+            projectRoot: process.cwd()
+        })
+        await parseAnswers(true)
+    })
+
     it('marks serenityAdapter as false and destSerenityLibRootPath as blank if not using Serenity/JS', async () => {
         vi.mocked(getAnswers).mockResolvedValue({
             ...defaultAnswers,
